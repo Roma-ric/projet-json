@@ -1,8 +1,8 @@
-// Récupération des données depuis le fichier JSON
-const reponse = await fetch("pieces-autos.json");
+// Récupération des données depuis l'API |V|
+const reponse = await fetch("http://localhost:8081/pieces", {
+    method: "GET"
+});
 const pieces = await reponse.json();
-// const pieces = await fetch("pieces-autos.json").then(pieces => pieces.json());
-
 
 function genereListProduit(List) {
     List.forEach(element => {
@@ -25,7 +25,6 @@ function genereListProduit(List) {
         const categorieElement = document.createElement("p");
         categorieElement.innerText = element.categorie ?? "(aucune catégorie)";
         categorieElement.className = "text-primary"
-
 
         //Ajouter les balises enfants à la balise mère
         divElement.appendChild(imageElement);
@@ -88,7 +87,26 @@ for (let i = 0; i < noms.length; i++) {
 // Ajout de l'en-tête puis de la liste au bloc résultats filtres
 document.querySelector('.abordables').appendChild(abordablesElements);
 
+//Ajouter une piece à la liste |V|
+const envoie = await fetch("http://localhost:8081/pieces", {
+    method: "POST",
+    body: '{ "id": 38, "nom": "Liquide de frein", "prix": 9.6, "categorie": "Freinage", "image": "images/liquide-frein.png",  "disponibilite": true }',
+    headers: {"Content-Type": "application/json"}
+});
 
+//Supprimer une piece à la liste |NV|
+const supprimer = await fetch("http://localhost:8081/pieces", {
+    method: "DELETE",
+    body: '{}',
+    headers: {"Content-Type": "application/json"}
+});
+
+//Mofifier une piece à la liste |NV|
+const modifier = await fetch("http://localhost:8081/pieces", {
+    method: "UPDATE",
+    body: '{}',
+    headers: {"Content-Type": "application/json"}
+});
 
 
 
