@@ -1,5 +1,5 @@
 // Récupération des données depuis l'API |V|
-const reponse = await fetch("http://localhost:8081/pieces", {
+const reponse = await fetch("http://localhost:8081/pieces", { //Si possible ajouter le numero de l'objet à recuperer ${id}
     method: "GET"
 });
 const pieces = await reponse.json();
@@ -88,29 +88,41 @@ for (let i = 0; i < noms.length; i++) {
 document.querySelector('.abordables').appendChild(abordablesElements);
 
 //Ajouter une piece à la liste |V|
-const envoie = await fetch("http://localhost:8081/pieces", {
+const envoie = await fetch("http://localhost:8081/pieces/", { //Pas de / à la fin de l'Endpoints
     method: "POST",
-    body: '{ "id": 38, "nom": "Liquide de frein", "prix": 9.6, "categorie": "Freinage", "image": "images/liquide-frein.png",  "disponibilite": true }',
-    headers: {"Content-Type": "application/json"}
+    body: JSON.stringify({
+        id: id,
+        nom: nom,
+        prix: prix,
+        categorie: categorie,
+        image: image,
+        disponibilite: disponibilite,
+    }),
+    headers: { "Content-Type": "application/json" }
 });
 
-//Supprimer une piece à la liste |NV|
-const supprimer = await fetch("http://localhost:8081/pieces", {
+//Supprimer une piece de la liste |V|
+const supprimer = await fetch("http://localhost:8081/pieces/n", { //Numero de l'objet à supprimer ${id}
     method: "DELETE",
-    body: '{}',
-    headers: {"Content-Type": "application/json"}
+    headers: { "Content-Type": "application/json" }
 });
 
-//Mofifier une piece à la liste |NV|
-const modifier = await fetch("http://localhost:8081/pieces", {
-    method: "UPDATE",
+//Mofifier une piece de la liste |V| 
+const modifier = await fetch("http://localhost:8081/pieces/n", { //Numero de l'objet à modifier ${id}//Pas prête
+    method: "PUT",
     body: '{}',
-    headers: {"Content-Type": "application/json"}
+    headers: { "Content-Type": "application/json" }
 });
 
+//localStorage
+//Récupérer 
+const valeur = window.localStorage.getItem("")
 
+//Ajouter 
+window.localStorage.setItem("", "");
 
-
+//Supprimer
+window.localStorage.removeItem("");
 
 
 
