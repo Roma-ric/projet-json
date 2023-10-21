@@ -88,15 +88,16 @@ for (let i = 0; i < noms.length; i++) {
 document.querySelector('.abordables').appendChild(abordablesElements);
 
 //Ajouter une piece à la liste |V|
-const envoie = await fetch("http://localhost:8081/pieces/", { //Pas de / à la fin de l'Endpoints
+const envoie = await fetch("http://localhost:8081/pieces$", { //Pas de $ à la fin de l'Endpoints
     method: "POST",
     body: JSON.stringify({
-        id: id,
-        nom: nom,
-        prix: prix,
-        categorie: categorie,
-        image: image,
-        disponibilite: disponibilite,
+        "id": 5,
+        "nom": "Balai d'essuie-glace",
+        "prix": 29.10,
+        "categorie": "Freinage",
+        "image": "./images/balai-essuie-glace.png",
+        "description": "Performances d’essuyage au top ! Longueur : 550 mm.",
+        "disponibilite": true
     }),
     headers: { "Content-Type": "application/json" }
 });
@@ -109,8 +110,8 @@ const supprimer = await fetch("http://localhost:8081/pieces/n", { //Numero de l'
 
 //Mofifier une piece de la liste |V| 
 const modifier = await fetch("http://localhost:8081/pieces/n", { //Numero de l'objet à modifier ${id}//Pas prête
-    method: "PUT",
-    body: '{}',
+    method: "PATCH", //PATCH (Modifier la partie donnéé) ou PUT(Modifier le contenu total)
+    body: '{"nom": "Liquide de frein original"}',
     headers: { "Content-Type": "application/json" }
 });
 
